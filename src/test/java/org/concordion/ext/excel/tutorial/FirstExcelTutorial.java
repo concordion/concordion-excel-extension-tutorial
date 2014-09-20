@@ -1,7 +1,9 @@
-package org.concordion.ext.excel.demo;
+package org.concordion.ext.excel.tutorial;
 
 import org.concordion.api.extension.Extensions;
 import org.concordion.ext.excel.ExcelExtension;
+import org.concordion.ext.excel.tutorial.BasicFareCalculator;
+import org.concordion.ext.excel.tutorial.FareCalculator;
 import org.concordion.integration.junit4.ConcordionRunner;
 import org.junit.runner.RunWith;
 

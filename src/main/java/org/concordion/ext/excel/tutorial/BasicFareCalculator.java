@@ -1,4 +1,4 @@
-package org.concordion.ext.excel.demo;
+package org.concordion.ext.excel.tutorial;
 
 public class BasicFareCalculator implements FareCalculator {
 

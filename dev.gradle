@@ -1,5 +1,5 @@
 // To include snapshot and local Maven repositories, run with 
-// gradle --init-script dev.gradle -q test
+// gradle --init-script dev.gradle test
 
 allprojects {
     repositories {
