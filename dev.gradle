@@ -1,0 +1,12 @@
+// To include snapshot and local Maven repositories, run with 
+// gradle --init-script dev.gradle -q test
+
+allprojects {
+    repositories {
+        // Only include the following repository for snapshots
+        maven {  
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+        mavenLocal()
+    }
+}

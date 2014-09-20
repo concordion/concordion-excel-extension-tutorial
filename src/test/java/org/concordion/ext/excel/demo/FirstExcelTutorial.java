@@ -1,4 +1,4 @@
-package spec.concordion.ext.excel;
+package org.concordion.ext.excel.demo;
 
 import org.concordion.api.extension.Extensions;
 import org.concordion.ext.excel.ExcelExtension;
@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(ConcordionRunner.class)
 @Extensions(ExcelExtension.class)
-public class FirstTutorial {
+public class FirstExcelTutorial {
 
 	
 

@@ -1,4 +1,4 @@
-package spec.concordion.ext.excel;
+package org.concordion.ext.excel.demo;
 
 public interface FareCalculator {
 
