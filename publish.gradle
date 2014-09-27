@@ -1,0 +1,28 @@
+// Publishes the Concordion output to Github Pages
+// gradle -b publish.gradle publishDocs
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.ajoberstar:gradle-git:0.10.0' 
+    }
+}
+
+apply plugin: 'org.ajoberstar.github-pages'
+
+githubPages {
+    repoUri = 'git@github.com:concordion/concordion-excel-extension-tutorial.git'      
+    pages {
+        from 'build/reports/spec/org/concordion/ext/excel/tutorial'
+    }
+}
+
+task publishDocs(dependsOn: ['runTests', 'publishGhPages'])
+
+task runTests(type: GradleBuild) {
+	buildFile = 'build.gradle'
+	tasks = ['test']
+}
