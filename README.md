@@ -45,9 +45,9 @@ The Specification
 
 The cab fare is priced as follows:
 
-1. £1 flat rate is applied at the start of the journey.
-2. Over the first 10 miles, the charge is £.50 per mile.
-3. Then on, the charge is £.30 per mile.
+1. Â£1 flat rate is applied at the start of the journey.
+2. Over the first 10 miles, the charge is Â£.50 per mile.
+3. Then on, the charge is Â£.30 per mile.
 
 Constructing the Excel Spreadsheet
 ----------------------------------
@@ -264,7 +264,7 @@ Conclusion
 Writing a test in Excel is really no harder than writing it in HTML, as we have seen.  
 
 But, one of the huge benefits of this approach is that we can now play with the spreadsheet, changing the constants, and
-be certain that our test will still work.   For example, if I change the cost per mile to £0.60p instead of £0.50p, the result
+be certain that our test will still work.   For example, if I change the cost per mile to Â£0.60p instead of Â£0.50p, the result
 looks like this:
 
 ![Changing a constant](tutorial/images/HTMLOutput3.png)
