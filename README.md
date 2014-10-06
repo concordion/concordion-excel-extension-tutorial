@@ -2,33 +2,7 @@
 
 [Concordion](http://www.concordion.org) is an open source framework for Java that lets you turn a plain English description of a requirement into an automated test.
  
-This project enables concordion to parse an Excel spreadsheet and use it as input data.   
-
-Vanilla Concordion is designed to process test specifications written in using a combination of an HTML Document
-and a Java fixture class.  When Concordion runs the test, it takes the HTML document and uses it as as the basis 
-of a test report, colouring the report as it goes to show which parts of the test have passed and failed.
-
-![Basic Concordion Process](tutorial/images/BasicConcordionProcess.png)
-
-The Concordion Excel Extension changes this so that the HTML Document is replaced by an Excel spreadsheet.  
-The spreadsheet is parsed into an HTML structure first, and then from there on processed through Concordion 
-in the normal way.  
-
-![Excel Concordion Process](tutorial/images/ExcelConcordionProcess.png)
-
-
-Motivation
-----------
-
-So, the extension simply gives you a different format for your test specification.  Why would it be sometimes
-preferable to represent this as an Excel document rather than an HTML one?  Three reasons:
-
-1.  Perhaps the team of test writers are not familiar with writing HTML, or are more comfortable with Excel.
-2.  You're constructing lots of tables containing the test examples.  Excel's table support is very polished and easy to use compared 
-to most HTML editors, or HTML-by-hand.
-3.  You're testing calculations which can be easily expressed in Excel functions.  It makes sense for the testers to write
-examples using the functions rather than calculating them by hand and putting the results into the test specification.  In fact, if you're
-here, your testers are probably calculating the test examples using Excel anyway.
+This project is a tutorial for [The Concordion Excel Extension](https://github.com/concordion/concordion-excel-extension) 
 
 Tutorial
 ========
@@ -270,36 +244,5 @@ looks like this:
 ![Changing a constant](tutorial/images/HTMLOutput3.png)
 
 And no other changes are necessary - Excel takes care of updating the results of the test.
-
-
-Note on Windows / Eclipse Usage
-===============================
-
-Eclipse gets confused about Windows Temporary Files if they are in the build path  (e.g. src/test/resources).  This means
-that if you have Excel open, Eclipse stops building your project.   But, there is a simple workaround for this, which is 
-to add an exclusion pattern like so:
-
-![Eclipse Exclusion Pattern](tutorial/images/EclipseExclusionPattern.png)
-
-If you are generating the Eclipse .classpath file using Maven, you can add this to your maven pom.xml file to do the same thing:
-
-	<project>
-	  ...
-	  <build>
-	    ...
-	    <resources>
-	      <resource>
-	        <directory>src/main/resources</directory>
-	        <filtering>true</filtering>
-	        <includes>
-	          <exclude>**/~$*.xlsx</include>
-	        </includes>
-	      </resource>
-	      ...
-	    </resources>
-	    ...
-	  </build>
-	  ...
-	</project>
 
 	
