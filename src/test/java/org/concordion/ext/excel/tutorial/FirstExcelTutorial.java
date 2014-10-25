@@ -1,9 +1,9 @@
 package org.concordion.ext.excel.tutorial;
 
+import java.math.BigDecimal;
+
 import org.concordion.api.extension.Extensions;
 import org.concordion.ext.excel.ExcelExtension;
-import org.concordion.ext.excel.tutorial.BasicFareCalculator;
-import org.concordion.ext.excel.tutorial.FareCalculator;
 import org.concordion.integration.junit4.ConcordionRunner;
 import org.junit.runner.RunWith;
 
@@ -11,22 +11,21 @@ import org.junit.runner.RunWith;
 @Extensions(ExcelExtension.class)
 public class FirstExcelTutorial {
 
-	
+	private FareCalculator fc;
 
 	public void setupCalculator(String flatRate, String cpm1, String cpm1Upper, String cpm2) {
 		
-		fc = new BasicFareCalculator(Double.parseDouble(flatRate), 
-				Double.parseDouble(cpm1),
-				Double.parseDouble(cpm1Upper),
-				Double.parseDouble(cpm2));
+		fc = new BasicFareCalculator(new Money(flatRate), 
+				new Money(cpm1),
+				new BigDecimal(cpm1Upper),
+				new Money(cpm2));
 	}
-	
-	private FareCalculator fc;
+
 	
 	public String calculateFare(String distance) {
-		double result = fc.calculateFare(Double.parseDouble(distance));
+		Money result = fc.calculateFare(new BigDecimal(distance));
 		
-		return ((Double)result).toString();
+		return result.toString();
 	}
-	
 }
+

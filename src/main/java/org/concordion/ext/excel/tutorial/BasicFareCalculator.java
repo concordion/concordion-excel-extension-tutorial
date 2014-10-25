@@ -1,16 +1,18 @@
 package org.concordion.ext.excel.tutorial;
 
+import java.math.BigDecimal;
+
 public class BasicFareCalculator implements FareCalculator {
 
-	double flatRate;
-	double costPerMile1;
-	double costPerMile1UpperLimit;
-	double costPerMile2;
+	Money flatRate;
+	Money costPerMile1;
+	BigDecimal costPerMile1UpperLimit;
+	Money costPerMile2;
 	
-	public BasicFareCalculator(double flatRate,
-			double costPerMile1,
-			double costPerMile1UpperLimit, 
-			double costPerMile2) {
+	public BasicFareCalculator(Money flatRate,
+			Money costPerMile1,
+			BigDecimal costPerMile1UpperLimit, 
+			Money costPerMile2) {
 		this.flatRate = flatRate;
 		this.costPerMile1 = costPerMile1;
 		this.costPerMile1UpperLimit = costPerMile1UpperLimit;
@@ -18,10 +20,12 @@ public class BasicFareCalculator implements FareCalculator {
 	}
 
 	@Override
-	public double calculateFare(double distance) {
-		return flatRate 
-				+ Math.min(costPerMile1UpperLimit, distance) * costPerMile1
-				+ Math.max(0, distance-costPerMile1UpperLimit) * costPerMile2;
+	public Money calculateFare(BigDecimal distance) {
+		BigDecimal distance1 = distance.min(costPerMile1UpperLimit);
+		BigDecimal distance2 = distance.subtract(costPerMile1UpperLimit).max(new BigDecimal(0));
+		Money mileageCost1 = costPerMile1.multiply(distance1);
+		Money mileageCost2 = costPerMile2.multiply(distance2);
+		return flatRate.add(mileageCost1).add(mileageCost2);
 	}
 
 }
