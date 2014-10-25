@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.concordion</groupId>
   <artifactId>concordion-excel-extension-tutorial</artifactId>
-  <version>0.2</version>
+  <version>1.0.1</version>
 
   <dependencies>
     <dependency>
@@ -44,6 +44,6 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <concordion.version>1.4.4</concordion.version>
-    <excel-extension.version>0.1.1</excel-extension.version>
+    <excel-extension.version>1.0.1</excel-extension.version>
   </properties>
 </project>
