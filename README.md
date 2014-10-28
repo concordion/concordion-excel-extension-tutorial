@@ -129,7 +129,7 @@ as an argument, and then store the value in the `#result` variable.  And, by add
 we are telling concordion that this is a command applying to the whole table, and that it should repeat this operation for 
 each row of the table in turn.
 
-If you understand how concordion works when processing HTML, then this might seem a bit magical.  As discussed earlier, the
+If you understand how concordion works when processing HTML, then this might seem a bit magical.  As discussed in the [documentation](https://github.com/concordion/concordion-excel-extension), the
 way the Concordion Excel Extension works is that it converts the spreadsheet into an HTML representation.  The brackets are 
 a directive to tell the processor to not put the command on the current HTML element, but on a parent element with the matching tag
 (in this case: work up the HTML heirarchy until you find the table tag, and add the command there). 
