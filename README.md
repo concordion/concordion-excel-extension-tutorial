@@ -2,7 +2,7 @@
 
 [Concordion](http://www.concordion.org) is an open source framework for Java that lets you turn a plain English description of a requirement into an automated test.
  
-This project is a tutorial for [The Concordion Excel Extension](https://github.com/concordion/concordion-excel-extension) 
+This project is a tutorial for the [Concordion Excel Extension](https://github.com/concordion/concordion-excel-extension).
 
 Tutorial
 ========
@@ -51,14 +51,16 @@ The total cost is the sum of all three components in the next column.
 
 ![Excel Calculating Total Cost](tutorial/images/ExcelCalcTotalCostFunction.png)
 
-Turning it into a test.
------------------------
+Turning it into a test
+----------------------
 
-Concordion is designed as a JUnit runner.  This means to tell JUnit to use Concordion , When the class is annotated with:
+Concordion is designed as a JUnit runner. By annotating the class with:
 
 	@RunWith(ConcordionRunner.class)
 
-then it will use the concordion runner.   We need to extend it so that it expects to load an Excel specification, rather than
+we tell JUnit to use the concordion runner.   
+
+We need to extend it so that it expects to load an Excel specification, rather than
 HTML as is usually the case with concordion.  
 
 	package spec.concordion.ext.excel;
@@ -70,7 +72,7 @@ HTML as is usually the case with concordion.
 	
 	@RunWith(ConcordionRunner.class)
 	@Extensions(ExcelExtension.class)
-	public class FirstTutorial {
+	public class FirstExcelTutorial {
 	
 	}
 
@@ -85,7 +87,7 @@ When we run this test, Concordion generates the following HTML output:
 Wiring Up The Constants
 -----------------------
 
-This is not yet a test, though, as we haven't made any assertions of our code.  So, next let's link the Excel spreadsheet to the java 
+This is not yet a test, though, as we haven't made any assertions of our code.  So, next let's link the Excel spreadsheet to the Java 
 implementation.  To do this, let's set concordion variables from the values on the sheet.  
 
 To do this, we add excel comments containing our concordion commands.  This follows the approach when we design an HTML concordion test and
@@ -117,7 +119,7 @@ contained in the cell.
 
 ![Checking the result](tutorial/images/ExcelConcordionSetResult.png)
 
-Finally, we must call the java code to make the calculation.  In concordion, this is applied to the whole table, and
+Finally, we must call the Java code to make the calculation.  In Concordion, this is applied to the whole table, and
 so we need to indicate this to our Excel spreadsheet too:
 
 ![Setting the fare calculation](tutorial/images/ExcelConcordionCalculateFare.png)
@@ -146,15 +148,14 @@ Code for calculateFare
 	
 	@RunWith(ConcordionRunner.class)
 	@Extensions(ExcelExtension.class)
-	public class FirstTutorial {
+	public class FirstExcelTutorial {
 		
 		private FareCalculator fc;
 		
 		public String calculateFare(String distance) {
-			double result = fc.calculateFare(Double.parseDouble(distance));
-			return ((Double)result).toString();
+			Money result = fc.calculateFare(new BigDecimal(distance));
+			return result.toString();
 		}
-		
 	}
 
 What's been added here is code to call a FareCalculator object, which is the class being tested.  This looks something like this:
@@ -166,8 +167,7 @@ What's been added here is code to call a FareCalculator object, which is the cla
 		/**
 		 * Returns price in GBP for a given distance in miles.
 		 */
-		double calculateFare(double parseDouble);
-	
+		Money calculateFare(BigDecimal distance);
 	}
 	
 What's missing though is the constructor for the `fc` field above: we have not created a FareCalculator object yet, or an implementation
@@ -176,29 +176,30 @@ of FareCalculator to call.  Such an implementation could look like this:
 	package spec.concordion.ext.excel;
 	
 	public class BasicFareCalculator implements FareCalculator {
+
+		Money flatRate;
+		Money costPerMile1;
+		BigDecimal costPerMile1UpperLimit;
+		Money costPerMile2;
 	
-		double flatRate;
-		double costPerMile1;
-		double costPerMile1UpperLimit;
-		double costPerMile2;
-		
-		public BasicFareCalculator(double flatRate,
-				double costPerMile1,
-				double costPerMile1UpperLimit, 
-				double costPerMile2) {
+		public BasicFareCalculator(Money flatRate,
+				Money costPerMile1,
+				BigDecimal costPerMile1UpperLimit, 
+				Money costPerMile2) {
 			this.flatRate = flatRate;
 			this.costPerMile1 = costPerMile1;
 			this.costPerMile1UpperLimit = costPerMile1UpperLimit;
 			this.costPerMile2 = costPerMile2;
 		}
-	
+
 		@Override
-		public double calculateFare(double distance) {
-			return flatRate 
-					+ Math.min(costPerMile1UpperLimit, distance) * costPerMile1
-					+ Math.max(0, distance-costPerMile1UpperLimit) * costPerMile2;
+		public Money calculateFare(BigDecimal distance) {
+			BigDecimal distance1 = distance.min(costPerMile1UpperLimit);
+			BigDecimal distance2 = distance.subtract(costPerMile1UpperLimit).max(new BigDecimal(0));
+			Money mileageCost1 = costPerMile1.multiply(distance1);
+			Money mileageCost2 = costPerMile2.multiply(distance2);
+			return flatRate.add(mileageCost1).add(mileageCost2);
 		}
-	
 	}
 
 Note the similarity between the Java code to calculate the fare, and the Excel functions to do the same.
@@ -219,10 +220,10 @@ Here is the Java implementation to complete this:
 
 	public void setupCalculator(String flatRate, String cpm1, String cpm1Upper, String cpm2) {
 		
-		fc = new BasicFareCalculator(Double.parseDouble(flatRate), 
-				Double.parseDouble(cpm1),
-				Double.parseDouble(cpm1Upper),
-				Double.parseDouble(cpm2));
+		fc = new BasicFareCalculator(new Money(flatRate), 
+					new Money(cpm1),
+					new BigDecimal(cpm1Upper),
+					new Money(cpm2));
 	}
 	
 We're Done
@@ -238,11 +239,8 @@ Conclusion
 Writing a test in Excel is really no harder than writing it in HTML, as we have seen.  
 
 But, one of the huge benefits of this approach is that we can now play with the spreadsheet, changing the constants, and
-be certain that our test will still work.   For example, if I change the cost per mile to £0.60p instead of £0.50p, the result
-looks like this:
+be certain that our test will still work.   For example, if I change the cost per mile to £0.60 instead of £0.50 and rerun the test, the result looks like this:
 
 ![Changing a constant](tutorial/images/HTMLOutput3.png)
 
-And no other changes are necessary - Excel takes care of updating the results of the test.
-
-	
+And no other changes are necessary - Excel takes care of updating the expected results of the test.
