@@ -8,5 +8,9 @@ build/
 .settings/
 bin/
 
+# IDEA
+.idea/
+*.iml
+
 # Maven
 target/
