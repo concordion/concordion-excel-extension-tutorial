@@ -2,6 +2,10 @@ apply plugin: 'java'
 
 description = 'Tutorial for the Concordion Excel extension'
 
+wrapper {
+    gradleVersion = "2.2"
+}
+
 repositories {
     mavenCentral()
 }

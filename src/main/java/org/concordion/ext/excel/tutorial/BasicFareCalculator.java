@@ -22,7 +22,7 @@ public class BasicFareCalculator implements FareCalculator {
 	@Override
 	public Money calculateFare(BigDecimal distance) {
 		BigDecimal distance1 = distance.min(costPerMile1UpperLimit);
-		BigDecimal distance2 = distance.subtract(costPerMile1UpperLimit).max(new BigDecimal(0));
+		BigDecimal distance2 = distance.subtract(costPerMile1UpperLimit).max(BigDecimal.ZERO);
 		Money mileageCost1 = costPerMile1.multiply(distance1);
 		Money mileageCost2 = costPerMile2.multiply(distance2);
 		return flatRate.add(mileageCost1).add(mileageCost2);
