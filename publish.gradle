@@ -7,7 +7,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'org.ajoberstar:gradle-git:0.10.0' 
+        classpath 'org.ajoberstar:gradle-git:0.13.0' 
     }
 }
 
