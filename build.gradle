@@ -3,7 +3,7 @@ apply plugin: 'java'
 description = 'Tutorial for the Concordion Excel extension'
 
 wrapper {
-    gradleVersion = "2.2"
+    gradleVersion = "2.12"
 }
 
 repositories {
@@ -11,13 +11,14 @@ repositories {
 }
 
 ext {
-    concordionVersion = "[1.4.4,)"	
-    concordionExcelVersion = "1.0.1"	
+    concordionVersion = "[2.0.0,)"	
+    concordionExcelVersion = "2.0.0"	
 }
 
 dependencies {
     testCompile "org.concordion:concordion:$concordionVersion",
-                "org.concordion:concordion-excel-extension:$concordionExcelVersion"
+                "org.concordion:concordion-excel-extension:$concordionExcelVersion",
+                'org.concordion:concordion-screenshot-extension:1.1.2'
 }
 
 test {
