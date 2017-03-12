@@ -12,7 +12,7 @@ repositories {
 
 ext {
     concordionVersion = "[1.4.4,)"	
-    concordionExcelVersion = "1.0.1"	
+    concordionExcelVersion = "2.0.2"	
 }
 
 dependencies {
