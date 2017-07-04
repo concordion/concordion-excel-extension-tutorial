@@ -43,7 +43,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <concordion.version>1.4.4</concordion.version>
-    <excel-extension.version>1.0.1</excel-extension.version>
+    <concordion.version>2.1.0</concordion.version>
+    <excel-extension.version>2.0.2</excel-extension.version>
   </properties>
 </project>
