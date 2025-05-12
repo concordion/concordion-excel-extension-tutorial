@@ -11,8 +11,8 @@ repositories {
 }
 
 ext {
-    concordionVersion = '2.2.0'
-    concordionExcelVersion = '2.1.0'
+    concordionVersion = '4.0.1'
+    concordionExcelVersion = '2.1.5'
     concordionScreenshotVersion = '1.3.0'
 }
 
